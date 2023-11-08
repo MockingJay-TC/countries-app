@@ -6,6 +6,17 @@ export default {
       fontFamily: {
         nunito: ["Nunito Sans", "sans-serif"],
       },
+      colors: {
+        "dark-blue": "hsl(209, 23%, 22%)",
+        "very-dark-blue(DMB)": "hsl(207, 26%, 17%)",
+        "very-dark-blue(LMT)": "hsl(200, 15%, 8%)",
+        "dary-grey": "hsl(0, 0%, 52%)",
+        "very-light-gray": "hsl(0, 0%, 98%)",
+      },
+      screens: {
+        mobile: "375px",
+        desktop: "1440px",
+      },
     },
   },
   plugins: [],
