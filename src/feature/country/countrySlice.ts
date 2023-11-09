@@ -11,7 +11,11 @@ const initialState: CountryState = {
 export const fetchCountries = createAsyncThunk(
   "country/fetchCountries",
   async () => {
-    const res = await axios.get(`${import.meta.env.VITE_REST_API}/v3.1/all`);
+    const res = await axios.get(
+      `${
+        import.meta.env.VITE_REST_API
+      }/v3.1/all?fields=name,flags,region,capital,population`
+    );
     return res.data;
   }
 );

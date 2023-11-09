@@ -1,6 +1,15 @@
 export interface Country {
   name: CountryName;
-  flag: string;
+  flags: Flag;
+  population: number;
+  capital: string;
+  region: string;
+}
+
+export interface Flag {
+  png: string;
+  svg: string;
+  alt: string;
 }
 
 export interface CountryName {
@@ -9,7 +18,7 @@ export interface CountryName {
 
 export interface CountryState {
   loading: boolean;
-  countries: CountryDetail[];
+  countries: Country[];
   error: string | undefined;
 }
 
