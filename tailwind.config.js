@@ -19,6 +19,7 @@ export default {
           navbar: "var(--color-fill-navbar)",
           card: "var(--color-card-accent)",
           search: "var(--color-fill-search)",
+          invert: "var(--color-text-muted)",
         },
       },
       boxShadow: {
