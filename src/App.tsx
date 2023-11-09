@@ -5,7 +5,7 @@ import DetailsPage from "./pages/DetailsPage";
 
 const App = () => {
   return (
-    <div className="font-nunito">
+    <div>
       <Router>
         <Routes>
           <Route path="/" element={<Layout childComp={<HomePage />} />} />

@@ -18,10 +18,13 @@ export default {
           fill: "var(--color-fill)",
           navbar: "var(--color-fill-navbar)",
           card: "var(--color-card-accent)",
+          search: "var(--color-fill-search)",
         },
       },
       boxShadow: {
         navbar: "0px 0px 7px 2px rgba(0, 0, 0, 0.03)",
+        search: " 0px 2px 9px 0px rgba(0, 0, 0, 0.05)",
+        card: "0px 0px 7px 2px rgba(0, 0, 0, 0.03)",
       },
       screens: {
         mobile: "375px",

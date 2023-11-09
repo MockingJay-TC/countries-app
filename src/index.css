@@ -6,6 +6,7 @@
   :root {
     --color-fill: #fafafa;
     --color-fill-navbar: #ffffff;
+    --color-fill-search: #ffffff;
     --color-card-accent: #ffffff;
     --color-text-base: #111517;
     --color-text-muted: #848484;
@@ -13,6 +14,7 @@
   .theme-dark {
     --color-fill: #202c36;
     --color-fill-navbar: #2b3844;
+    --color-fill-search: #2b3844;
     --color-card-accent: #2b3844;
     --color-text-base: #ffffff;
     --color-text-muted: #ffffff;
