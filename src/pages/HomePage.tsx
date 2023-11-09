@@ -1,33 +1,28 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../store/hook";
+
 import Dropdown from "../components/Dropdown";
 import Search from "../components/Search";
+import { fetchCountries } from "../feature/country/countrySlice";
 
 const HomePage = () => {
-  const [countries, setCountries] = useState([]);
+  const dispatch = useAppDispatch();
+  const { countries, loading } = useAppSelector((state) => state.countries);
 
-  const getCountries = async () => {
-    const baseUrl = process.env.REACT_APP_REST_API;
-    const url = `${baseUrl}/v3.1/all`;
-    axios.get(url).then((res) => {
-      setCountries(res.data.results);
-      console.log(countries);
-    });
-  };
   useEffect(() => {
-    getCountries();
+    dispatch(fetchCountries());
   }, []);
 
   return (
-    <div className="bg-skin-fill h-screen pt-32 px-32">
+    <div className="bg-skin-fill h-screen pt-32 px-32 overflow-hidden">
       <div>
         <div className="flex items-center justify-between">
           <Search />
           <Dropdown />
         </div>
-        <div className="mt-6">
-          {countries?.map(() => {
-            return <p>me</p>;
+        <div className="mt-6 overflow-scroll h-screen">
+          {countries?.map((country, index: number) => {
+            return <p key={index}>{country?.name?.common}</p>;
           })}
         </div>
       </div>
