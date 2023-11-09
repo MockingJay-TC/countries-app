@@ -2,22 +2,25 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import HomePage from "./pages/HomePage";
 import DetailsPage from "./pages/DetailsPage";
-import { CountryContext } from "./context/Context";
+import { CountryContext, RegionContext } from "./context/Context";
 import { useState } from "react";
 
 const App = () => {
   const [search, setSearch] = useState<string>("");
+  const [filter, setFilter] = useState<string>("");
   return (
     <div>
       <Router>
         <CountryContext.Provider value={{ search, setSearch }}>
-          <Routes>
-            <Route path="/" element={<Layout childComp={<HomePage />} />} />
-            <Route
-              path="/details-page/:countryName"
-              element={<Layout childComp={<DetailsPage />} />}
-            />
-          </Routes>
+          <RegionContext.Provider value={{ filter, setFilter }}>
+            <Routes>
+              <Route path="/" element={<Layout childComp={<HomePage />} />} />
+              <Route
+                path="/details-page/:countryName"
+                element={<Layout childComp={<DetailsPage />} />}
+              />
+            </Routes>
+          </RegionContext.Provider>
         </CountryContext.Provider>
       </Router>
     </div>

@@ -4,3 +4,4 @@ const defaultState: unknown = null;
 
 export const ThemeContext = createContext(defaultState);
 export const CountryContext = createContext(defaultState);
+export const RegionContext = createContext(defaultState);
