@@ -7,12 +7,12 @@ import { useState } from "react";
 
 const App = () => {
   const [search, setSearch] = useState<string>("");
-  const [filter, setFilter] = useState<string>("");
+  const [regionFilter, setFilter] = useState<string>("");
   return (
     <div>
       <Router>
         <CountryContext.Provider value={{ search, setSearch }}>
-          <RegionContext.Provider value={{ filter, setFilter }}>
+          <RegionContext.Provider value={{ regionFilter, setFilter }}>
             <Routes>
               <Route path="/" element={<Layout childComp={<HomePage />} />} />
               <Route

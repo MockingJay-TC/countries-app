@@ -1,6 +1,7 @@
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
+import { RegionContext } from "../context/Context";
 import { useAppSelector } from "../store/hook";
 
 function classNames(...classes: string[]) {
@@ -8,8 +9,14 @@ function classNames(...classes: string[]) {
 }
 
 export default function Dropdown() {
-  const { countries, loading } = useAppSelector((state) => state.countries);
-  const [selected, setSelected] = useState("Filter by Region");
+  const { setFilter } = useContext(RegionContext);
+
+  const { countries } = useAppSelector((state) => state.countries);
+  const [selected, setSelected] = useState("Filter by region");
+
+  useEffect(() => {
+    setFilter(selected);
+  });
 
   let regions: string[] = [];
 
@@ -28,9 +35,7 @@ export default function Dropdown() {
           <div className="relative mt-2 w-[200px] h-14 font-normal">
             <Listbox.Button className="relative h-full  w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-search ring-inset ring-0   border-none focus:outline-none  sm:text-sm sm:leading-6">
               <span className="flex items-center">
-                <span className="ml-3 block truncate">
-                  {selected === null ? "Filter by Region" : selected}
-                </span>
+                <span className="ml-3 block truncate">{selected}</span>
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                 <ChevronDownIcon
