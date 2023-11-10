@@ -5,10 +5,11 @@ import Card from "../components/Card";
 import Dropdown from "../components/Dropdown";
 import Search from "../components/Search";
 import { fetchCountries } from "../feature/country/countrySlice";
-import { RegionContext } from "../context/Context";
+import { CountryContext, RegionContext } from "../context/Context";
 
 const HomePage = () => {
   const { regionFilter } = useContext(RegionContext);
+  const { countrySearch } = useContext(CountryContext);
   const dispatch = useAppDispatch();
   const { countries } = useAppSelector((state) => state.countries);
 
@@ -24,18 +25,24 @@ const HomePage = () => {
           <Dropdown />
         </div>
         <div className="mt-6 mb-4 flex gap-y-8 gap-x-7 flex-wrap justify-between overflow-scroll overflow-x-hidden scrollbar-hide h-full">
-          {countries
-            ?.filter((country, index: number) => {
-              if (regionFilter === "" || regionFilter === "Filter by region") {
+          {regionFilter === "Filter by region" && countrySearch === ""
+            ? countries?.map((country, index: number) => {
                 return <Card key={index} country={country} />;
-              } else if (country.region.includes(regionFilter)) {
-                return true;
-              }
-              return false;
-            })
-            ?.map((country, index: number) => {
-              return <Card key={index} country={country} />;
-            })}
+              })
+            : countries
+                ?.filter((country) =>
+                  country.name.common
+                    .toLowerCase()
+                    .includes(countrySearch.toLowerCase())
+                )
+                .filter((country) =>
+                  country.region.includes(
+                    regionFilter === "Filter by region" ? "" : regionFilter
+                  )
+                )
+                ?.map((country, index: number) => {
+                  return <Card key={index} country={country} />;
+                })}
         </div>
       </div>
     </div>
