@@ -14,12 +14,19 @@ export interface Flag {
 
 export interface CountryName {
   common: string;
+  nativeName: never;
 }
 
 export interface CountryState {
   loading: boolean;
   countries: Country[];
   error: string | undefined;
+  selectedCountry: CountryDetail;
 }
 
-export interface CountryDetail extends Country {}
+export interface CountryDetail extends Country {
+  subregion: string;
+  topLevelDomain: string[];
+  currencies: string[];
+  languages: string[];
+}

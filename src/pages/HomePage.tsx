@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../store/hook";
 import Card from "../components/Card";
 import Dropdown from "../components/Dropdown";
 import Search from "../components/Search";
-import { fetchCountries } from "../feature/country/countrySlice";
+import { fetchCountries, fetchCountry } from "../feature/country/countrySlice";
 import { CountryContext, RegionContext } from "../context/Context";
 
 const HomePage = () => {

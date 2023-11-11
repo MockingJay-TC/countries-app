@@ -26,6 +26,7 @@ export default {
         navbar: "0px 0px 7px 2px rgba(0, 0, 0, 0.03)",
         search: " 0px 2px 9px 0px rgba(0, 0, 0, 0.05)",
         card: "0px 0px 7px 2px rgba(0, 0, 0, 0.03)",
+        pill: "0px 0px 4px 1px rgba(0, 0, 0, 0.10)",
       },
       screens: {
         mobile: "375px",

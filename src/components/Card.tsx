@@ -1,12 +1,26 @@
 import { Country } from "../Interfaces/interface";
+import { useNavigate } from "react-router-dom";
+import { fetchCountry } from "../feature/country/countrySlice";
+import { useAppDispatch } from "../store/hook";
 
 interface ICard {
   country: Country;
 }
 
 const Card = ({ country }: ICard) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const handleCardDetials = (country: Country) => {
+    const name = country.name.common.replace(/\s+/g, "-");
+    dispatch(fetchCountry(country.name.common));
+    navigate(`/details-page/${name}`, { state: { country } });
+  };
   return (
-    <div className="w-72 h-80 rounded-md shadow-card bg-skin-card cursor-pointer group-hover hover:shadow-2xl">
+    <div
+      className="w-72 h-80 rounded-md shadow-card bg-skin-card cursor-pointer group-hover hover:shadow-2xl"
+      onClick={() => handleCardDetials(country)}
+    >
       <div className="w-full h-40">
         <img
           src={country.flags.svg}
