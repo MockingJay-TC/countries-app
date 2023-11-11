@@ -4,9 +4,10 @@ import { useAppSelector } from "../store/hook";
 
 const DetailsPage = () => {
   const [native, setNative] = useState("");
+  const [currencies, setCurrencies] = useState([]);
   const { selectedCountry } = useAppSelector((state) => state.countries);
 
-  const getNameNative = () => {
+  useEffect(() => {
     if (selectedCountry?.name) {
       const nativeName = selectedCountry?.name?.nativeName;
       const newArray = Object.entries(nativeName).map(([key, value]) => ({
@@ -15,13 +16,24 @@ const DetailsPage = () => {
         official: value.official,
       }));
       setNative(newArray[0].common);
-      console.log(newArray[0].common);
     }
-  };
+  }, [native, selectedCountry?.name]);
 
   useEffect(() => {
-    getNameNative();
-  }, []);
+    selectedCountry.currencies.forEach((currency) => {
+      setCurrencies([...currencies, currency.name]);
+    });
+
+    // if (selectedCountry?.currencies) {
+    //   const curr = selectedCountry?.currencies;
+    //   const newArray = Object.entries(curr).map(([key, value]) => ({
+    //     country: key,
+    //     name: value.name,
+    //     symbol: value.symbol,
+    //   }));
+    //   setCurrencies(newArray);
+    // }
+  }, [selectedCountry?.currencies]);
 
   return (
     <div className="p-32 h-full">
@@ -45,7 +57,7 @@ const DetailsPage = () => {
             <p>
               <span className="font-semibold text-base">Population:</span>{" "}
               <span className="font-light text-base">
-                {selectedCountry.population}
+                {new Intl.NumberFormat().format(selectedCountry.population)}
               </span>
             </p>
             <p>
@@ -64,6 +76,22 @@ const DetailsPage = () => {
               <span className="font-semibold text-base">Capital:</span>{" "}
               <span className="font-light text-base">
                 {selectedCountry.capital}
+              </span>
+            </p>
+          </div>
+          <div>
+            <p>
+              <span className="font-semibold text-base">Top Level Domain:</span>{" "}
+              <span className="font-light text-base">
+                {selectedCountry.tld}
+              </span>
+            </p>
+            <p>
+              <span className="font-semibold text-base">Currencies:</span>{" "}
+              <span className="font-light text-base">
+                {currencies?.map((curr, index) => (
+                  <p key={index}>{curr}</p>
+                ))}
               </span>
             </p>
           </div>

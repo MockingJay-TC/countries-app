@@ -32,7 +32,10 @@ const Card = ({ country }: ICard) => {
         <h2 className="mb-3 text-lg font-extrabold">{country.name.common}</h2>
         <p>
           <span className="font-semibold text-sm">Population:</span>{" "}
-          <span className="font-light text-sm">{country.population}</span>
+          <span className="font-light text-sm">
+            {" "}
+            {new Intl.NumberFormat().format(country.population)}
+          </span>
         </p>
         <p>
           <span className="font-semibold text-sm">Region:</span>{" "}

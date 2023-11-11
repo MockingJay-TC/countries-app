@@ -26,7 +26,7 @@ export interface CountryState {
 
 export interface CountryDetail extends Country {
   subregion: string;
-  topLevelDomain: string[];
-  currencies: string[];
+  tld: string[];
+  currencies: [{ name: string }];
   languages: string[];
 }

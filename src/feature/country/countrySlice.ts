@@ -15,7 +15,7 @@ export const fetchCountries = createAsyncThunk(
     const res = await axios.get(
       `${
         import.meta.env.VITE_REST_API
-      }/v3.1/all?fields=name,flags,region,capital,population`
+      }/all?fields=name,flags,region,capital,population`
     );
     return res.data;
   }
@@ -25,7 +25,7 @@ export const fetchCountry = createAsyncThunk(
   "country/fetchCountry",
   async (name: string) => {
     const res = await axios.get(
-      `${import.meta.env.VITE_REST_API}/v3.1/name/${name}?fullText=true`
+      `${import.meta.env.VITE_REST_API}/name/${name}?fullText=true`
     );
     return res.data[0];
   }
