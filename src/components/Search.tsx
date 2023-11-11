@@ -13,7 +13,9 @@ const Search = () => {
         placeholder="Search for a country..."
         className="w-full focus:outline-none text-lg text-skin-muted"
         onChange={(e) => {
-          setCountrySearch(e.target.value);
+          if (setCountrySearch) {
+            setCountrySearch(e.target.value);
+          }
         }}
       />
     </div>

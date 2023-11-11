@@ -10,12 +10,13 @@ function classNames(...classes: string[]) {
 
 export default function Dropdown() {
   const { setFilter } = useContext(RegionContext);
-
   const { countries } = useAppSelector((state) => state.countries);
   const [selected, setSelected] = useState("Filter by region");
 
   useEffect(() => {
-    setFilter(selected);
+    if (setFilter) {
+      setFilter(selected);
+    }
   });
 
   let regions: string[] = [];
