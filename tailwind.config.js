@@ -31,6 +31,7 @@ export default {
       screens: {
         mobile: "375px",
         desktop: "1440px",
+        xxl: "2000px",
       },
     },
   },

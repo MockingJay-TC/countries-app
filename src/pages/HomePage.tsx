@@ -4,8 +4,8 @@ import { useAppDispatch, useAppSelector } from "../store/hook";
 import Card from "../components/Card";
 import Dropdown from "../components/Dropdown";
 import Search from "../components/Search";
-import { fetchCountries, fetchCountry } from "../feature/country/countrySlice";
 import { CountryContext, RegionContext } from "../context/Context";
+import { fetchCountries } from "../feature/country/countrySlice";
 
 const HomePage = () => {
   const { regionFilter } = useContext(RegionContext);
@@ -31,7 +31,7 @@ const HomePage = () => {
               })
             : countries
                 ?.filter((country) =>
-                  country.name.common
+                  country.name
                     .toLowerCase()
                     .includes(countrySearch.toLowerCase())
                 )

@@ -1,15 +1,16 @@
 export interface Country {
-  name: CountryName;
+  name: string;
   flags: Flag;
   population: number;
   capital: string;
   region: string;
+  nativeName: string;
+  borders: string[];
 }
 
 export interface Flag {
   png: string;
   svg: string;
-  alt: string;
 }
 
 export interface CountryName {
@@ -22,11 +23,12 @@ export interface CountryState {
   countries: Country[];
   error: string | undefined;
   selectedCountry: CountryDetail;
+  borders: string[];
 }
 
 export interface CountryDetail extends Country {
   subregion: string;
-  tld: string[];
+  topLevelDomain: string[];
   currencies: [{ name: string }];
-  languages: string[];
+  languages: [{ name: string }];
 }

@@ -1,8 +1,18 @@
-const Pill = ({ name }: { name: string }) => {
+import { useAppSelector } from "../store/hook";
+
+const Pill = () => {
+  const { borders } = useAppSelector((state) => state.countries);
+
   return (
-    <div className="shadow-pill h-10 flex items-center justify-center p-5">
-      <h1 className="text-sm font-light">{name}</h1>
-      <h1 className="text-sm font-light">{name}</h1>
+    <div className="flex items-center gap-4 justify-stretch flex-wrap">
+      {borders?.map((border, index) => (
+        <div
+          key={index}
+          className=" shadow-pill py-1.5 px-3 text-sm font-light"
+        >
+          {border}
+        </div>
+      ))}
     </div>
   );
 };

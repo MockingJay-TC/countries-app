@@ -7,6 +7,7 @@ const initialState: CountryState = {
   countries: [],
   error: "",
   selectedCountry: {} as CountryDetail,
+  borders: [],
 };
 
 export const fetchCountries = createAsyncThunk(
@@ -15,7 +16,7 @@ export const fetchCountries = createAsyncThunk(
     const res = await axios.get(
       `${
         import.meta.env.VITE_REST_API
-      }/all?fields=name,flags,region,capital,population`
+      }/all?fields=name,flags,region,capital,population,borders,subregion,currencies,languages,topLeveDomain,nativeName`
     );
     return res.data;
   }
@@ -28,6 +29,26 @@ export const fetchCountry = createAsyncThunk(
       `${import.meta.env.VITE_REST_API}/name/${name}?fullText=true`
     );
     return res.data[0];
+  }
+);
+
+export const fetchBorderCountries = createAsyncThunk(
+  "country/fetchBorderCountries",
+  async (borderCountries: string[], { rejectWithValue }) => {
+    if (!borderCountries) return [];
+
+    try {
+      const objects = await Promise.all(
+        borderCountries?.map((border) =>
+          axios
+            .get(`${import.meta.env.VITE_REST_API}/alpha/${border}`)
+            .then((response) => response.data.name)
+        )
+      );
+      return objects;
+    } catch (error: unknown) {
+      return rejectWithValue(error);
+    }
   }
 );
 
@@ -51,6 +72,9 @@ const countrySlice = createSlice({
     });
     builder.addCase(fetchCountry.fulfilled, (state, action) => {
       state.selectedCountry = action.payload;
+    });
+    builder.addCase(fetchBorderCountries.fulfilled, (state, action) => {
+      state.borders = action.payload;
     });
   },
 });
