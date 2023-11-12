@@ -11,6 +11,7 @@ export default {
         skin: {
           base: "var(--color-text-base)",
           muted: "var(--color-text-muted)",
+          invert: "var(--color-text-invert)",
         },
       },
       backgroundColor: {

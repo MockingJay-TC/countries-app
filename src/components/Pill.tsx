@@ -8,7 +8,7 @@ const Pill = () => {
       {borders?.map((border, index) => (
         <div
           key={index}
-          className=" shadow-pill py-1.5 px-3 text-sm font-light"
+          className="shadow-pill py-1.5 px-3 text-sm font-light bg-skin-navbar"
         >
           {border}
         </div>

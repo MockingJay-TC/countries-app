@@ -22,13 +22,13 @@ const DetailsPage = () => {
     navigate(-1);
   };
   return (
-    <div className="desktop:p-32 px-7 pt-28 pb-12 xxl:px-96 h-auto desktop:h-full border-4">
+    <div className="bg-skin-fill desktop:p-32 px-7 pt-28 pb-12 xxl:px-96 h-auto desktop:h-full">
       <div
         onClick={() => handleBack()}
-        className="w-[136px] h-[40px] justify-center px-6 items-center gap-2 inline-flex shadow-search rounded-md cursor-pointer mb-10"
+        className="bg-skin-navbar w-[136px] h-[40px] justify-center px-6 items-center gap-2 inline-flex shadow-search rounded-md cursor-pointer mb-10"
       >
-        <ArrowLeftIcon className="w-4" />
-        <span className="text-sm font-light">Back</span>
+        <ArrowLeftIcon className="w-4 text-skin-base" />
+        <span className="text-sm font-light text-skin-base">Back</span>
       </div>
       <div className="xxl:flex desktop:grid grid-cols-2 gap-20 space-y-7 desktop:space-y-0 items-center justify-between h-full">
         <div className="desktop:w-[600px] desktop:h-[400px] ">
@@ -38,8 +38,8 @@ const DetailsPage = () => {
             className="w-full h-full object-cover rounded-md"
           />
         </div>
-        <div className="text-left">
-          <h1 className="desktop:text-4xl text-2xl font-extrabold">
+        <div className="text-left text-skin-base">
+          <h1 className="desktop:text-4xl text-2xl font-extrabold ">
             {selectedCountry?.name}
           </h1>
           <div className="desktop:grid grid-cols-2 my-6 space-y-4">

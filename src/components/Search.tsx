@@ -7,11 +7,11 @@ const Search = () => {
 
   return (
     <div className="flex items-center gap-5 bg-skin-search desktop:w-[30rem] rounded-md desktop:h-14 h-12 px-8 shadow-search">
-      <MagnifyingGlassIcon className="desktop:w-5 desktop:h-5 w-4 h-4" />
+      <MagnifyingGlassIcon className="desktop:w-5 desktop:h-5 w-4 h-4 text-skin-base" />
       <input
         type="text"
         placeholder="Search for a country..."
-        className="w-full focus:outline-none desktop:text-lg text-skin-muted"
+        className="w-full focus:outline-none desktop:text-lg text-skin-muted bg-skin-search"
         onChange={(e) => {
           if (setCountrySearch) {
             setCountrySearch(e.target.value);

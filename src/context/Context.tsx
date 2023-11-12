@@ -1,6 +1,12 @@
 import { createContext, Dispatch, SetStateAction } from "react";
 
-const defaultState = null;
+const themeState: {
+  theme: boolean;
+  setTheme: null | Dispatch<SetStateAction<boolean>>;
+} = {
+  theme: false,
+  setTheme: null,
+};
 
 const regionalState: {
   regionFilter: string;
@@ -18,6 +24,6 @@ const countryState: {
   setCountrySearch: null,
 };
 
-export const ThemeContext = createContext(defaultState);
+export const ThemeContext = createContext(themeState);
 export const CountryContext = createContext(countryState);
 export const RegionContext = createContext(regionalState);

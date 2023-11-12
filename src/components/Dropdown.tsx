@@ -34,13 +34,13 @@ export default function Dropdown() {
       {({ open }: { open: boolean }) => (
         <>
           <div className="relative w-[200px] desktop:h-14 h-12 font-normal">
-            <Listbox.Button className="relative h-full  w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-search ring-inset ring-0   border-none focus:outline-none  sm:text-sm sm:leading-6">
+            <Listbox.Button className="relative h-full  w-full cursor-default rounded-md bg-skin-search py-1.5 pl-3 pr-10 text-left text-skin-base shadow-search ring-inset ring-0 border-none focus:outline-none  sm:text-sm sm:leading-6">
               <span className="flex items-center">
                 <span className="ml-3 block truncate">{selected}</span>
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                 <ChevronDownIcon
-                  className="h-5 w-5 text-gray-400"
+                  className="h-5 w-5 text-skin-base"
                   aria-hidden="true"
                 />
               </span>
@@ -53,13 +53,15 @@ export default function Dropdown() {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-skin-search py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {getRegions().map((region, index) => (
                   <Listbox.Option
                     key={index}
                     className={({ active }: { active: unknown }) =>
                       classNames(
-                        active ? "bg-skin-invert text-white" : "text-gray-900",
+                        active
+                          ? "bg-skin-invert text-skin-invert"
+                          : "text-skin-base",
                         "relative cursor-default select-none py-2 pl-3 pr-9"
                       )
                     }
@@ -87,7 +89,7 @@ export default function Dropdown() {
                         {selected ? (
                           <span
                             className={classNames(
-                              active ? "text-white" : "text-gray-600",
+                              active ? "text-skin-base" : "text-skin-base",
                               "absolute inset-y-0 right-0 flex items-center pr-4"
                             )}
                           >

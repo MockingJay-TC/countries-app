@@ -10,6 +10,7 @@
     --color-card-accent: #ffffff;
     --color-text-base: #111517;
     --color-text-muted: #848484;
+    --color-text-invert: #111517;
   }
   .theme-dark {
     --color-fill: #202c36;
@@ -18,5 +19,6 @@
     --color-card-accent: #2b3844;
     --color-text-base: #ffffff;
     --color-text-muted: #ffffff;
+    --color-text-invert: #111517;
   }
 }
