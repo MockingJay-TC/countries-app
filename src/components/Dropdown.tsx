@@ -33,7 +33,7 @@ export default function Dropdown() {
     <Listbox value={selected} onChange={setSelected}>
       {({ open }: { open: boolean }) => (
         <>
-          <div className="relative mt-2 w-[200px] h-14 font-normal">
+          <div className="relative w-[200px] desktop:h-14 h-12 font-normal">
             <Listbox.Button className="relative h-full  w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-search ring-inset ring-0   border-none focus:outline-none  sm:text-sm sm:leading-6">
               <span className="flex items-center">
                 <span className="ml-3 block truncate">{selected}</span>
