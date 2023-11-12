@@ -1,10 +1,5 @@
-import { Country } from "../Interfaces/interface";
 import { useNavigate } from "react-router-dom";
-import {
-  fetchBorderCountries,
-  fetchCountry,
-} from "../feature/country/countrySlice";
-import { useAppDispatch } from "../store/hook";
+import { Country } from "../Interfaces/interface";
 
 interface ICard {
   country: Country;
@@ -12,14 +7,11 @@ interface ICard {
 
 const Card = ({ country }: ICard) => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const handleCardDetials = (country: Country) => {
-    const name = country.name.replace(/\s+/g, "-");
-    dispatch(fetchBorderCountries(country.borders));
-    dispatch(fetchCountry(country.name));
-    navigate(`/details-page/${name}`, { state: { country } });
+    navigate(`/details-page/${country.alpha3Code}`);
   };
+
   return (
     <div
       className="desktop:w-72 h-80 w-full rounded-md shadow-card bg-skin-card cursor-pointer group-hover hover:shadow-2xl"

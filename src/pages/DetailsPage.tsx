@@ -1,15 +1,28 @@
-import { useNavigate } from "react-router-dom";
-import Pill from "../components/Pill";
-import { useAppSelector } from "../store/hook";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import Pill from "../components/Pill";
 import { CountryContext, RegionContext } from "../context/Context";
+import {
+  fetchBorderCountries,
+  fetchCountryByCode,
+} from "../feature/country/countrySlice";
+import { useAppDispatch, useAppSelector } from "../store/hook";
 
 const DetailsPage = () => {
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const { selectedCountry } = useAppSelector((state) => state.countries);
   const { setFilter } = useContext(RegionContext);
   const { setCountrySearch } = useContext(CountryContext);
+
+  const { countryName } = useParams();
+
+  useEffect(() => {
+    dispatch(fetchCountryByCode(countryName as string));
+    dispatch(fetchBorderCountries(selectedCountry.borders));
+  }, [countryName, dispatch, selectedCountry.borders]);
 
   const handleBack = () => {
     if (setCountrySearch) {
@@ -19,7 +32,7 @@ const DetailsPage = () => {
       setFilter("Filter by region");
     }
 
-    navigate(-1);
+    navigate("/");
   };
   return (
     <div className="bg-skin-fill desktop:p-32 px-7 pt-28 pb-12 xxl:px-96 h-auto desktop:h-full">

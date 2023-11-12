@@ -16,25 +16,28 @@ export const fetchCountries = createAsyncThunk(
     const res = await axios.get(
       `${
         import.meta.env.VITE_REST_API
-      }/all?fields=name,flags,region,capital,population,borders,subregion,currencies,languages,topLeveDomain,nativeName`
+      }/all?fields=name,flags,region,capital,population,borders,subregion,currencies,languages,topLeveDomain,nativeName,alpha3Code`
     );
     return res.data;
   }
 );
 
-export const fetchCountry = createAsyncThunk(
-  "country/fetchCountry",
-  async (name: string) => {
+export const fetchCountryByCode = createAsyncThunk(
+  "country/fetchCountryByCode",
+  async (code: string) => {
     const res = await axios.get(
-      `${import.meta.env.VITE_REST_API}/name/${name}?fullText=true`
+      `${import.meta.env.VITE_REST_API}/alpha/${code}`
     );
-    return res.data[0];
+    return res.data;
   }
 );
 
 export const fetchBorderCountries = createAsyncThunk(
   "country/fetchBorderCountries",
-  async (borderCountries: string[], { rejectWithValue }) => {
+  async (
+    borderCountries: { name: string; code: string }[],
+    { rejectWithValue }
+  ) => {
     if (!borderCountries) return [];
 
     try {
@@ -42,7 +45,10 @@ export const fetchBorderCountries = createAsyncThunk(
         borderCountries?.map((border) =>
           axios
             .get(`${import.meta.env.VITE_REST_API}/alpha/${border}`)
-            .then((response) => response.data.name)
+            .then((response) => ({
+              name: response.data.name,
+              code: response.data.alpha3Code,
+            }))
         )
       );
       return objects;
@@ -70,11 +76,11 @@ const countrySlice = createSlice({
       state.countries = [];
       state.error = action.error.message;
     });
-    builder.addCase(fetchCountry.fulfilled, (state, action) => {
-      state.selectedCountry = action.payload;
-    });
     builder.addCase(fetchBorderCountries.fulfilled, (state, action) => {
       state.borders = action.payload;
+    });
+    builder.addCase(fetchCountryByCode.fulfilled, (state, action) => {
+      state.selectedCountry = action.payload;
     });
   },
 });

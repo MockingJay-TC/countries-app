@@ -5,7 +5,8 @@ export interface Country {
   capital: string;
   region: string;
   nativeName: string;
-  borders: string[];
+  borders: { name: string; code: string }[];
+  alpha3Code: string;
 }
 
 export interface Flag {
@@ -23,7 +24,7 @@ export interface CountryState {
   countries: Country[];
   error: string | undefined;
   selectedCountry: CountryDetail;
-  borders: string[];
+  borders: { name: string; code: string }[];
 }
 
 export interface CountryDetail extends Country {
