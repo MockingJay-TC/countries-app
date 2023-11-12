@@ -18,13 +18,13 @@ const HomePage = () => {
   }, [dispatch]);
 
   return (
-    <div className="bg-skin-fill h-screen pt-32 px-32 ">
+    <div className="bg-skin-fill h-screen pt-28 desktop:p-32 px-7 pb-12 xxl:px-96">
       <div className="flex flex-col items-stretch justify-between h-full">
-        <div className="flex items-center justify-between">
+        <div className="desktop:flex items-center justify-between space-y-8 desktop:space-y-0">
           <Search />
           <Dropdown />
         </div>
-        <div className="mt-6 mb-4 flex gap-y-8 gap-x-7 flex-wrap justify-between overflow-scroll overflow-x-hidden scrollbar-hide h-full">
+        <div className="mt-6 px-10 desktop:px-0 mb-4 flex gap-y-8 gap-x-7 flex-wrap justify-between overflow-scroll overflow-x-hidden scrollbar-hide h-full">
           {regionFilter === "Filter by region" && countrySearch === ""
             ? countries?.map((country, index: number) => {
                 return <Card key={index} country={country} />;

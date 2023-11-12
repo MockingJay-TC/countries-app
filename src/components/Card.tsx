@@ -22,7 +22,7 @@ const Card = ({ country }: ICard) => {
   };
   return (
     <div
-      className="w-72 h-80 rounded-md shadow-card bg-skin-card cursor-pointer group-hover hover:shadow-2xl"
+      className="desktop:w-72 h-80 w-full rounded-md shadow-card bg-skin-card cursor-pointer group-hover hover:shadow-2xl"
       onClick={() => handleCardDetials(country)}
     >
       <div className="w-full h-40">

@@ -6,12 +6,12 @@ const Search = () => {
   const { setCountrySearch } = useContext(CountryContext);
 
   return (
-    <div className="flex items-center gap-5 bg-skin-search w-[30rem] rounded-md h-14 px-8 shadow-search">
-      <MagnifyingGlassIcon className="w-5 h-5" />
+    <div className="flex items-center gap-5 bg-skin-search desktop:w-[30rem] rounded-md h-14 px-8 shadow-search">
+      <MagnifyingGlassIcon className="desktop:w-5 desktop:h-5 w-4 h-4" />
       <input
         type="text"
         placeholder="Search for a country..."
-        className="w-full focus:outline-none text-lg text-skin-muted"
+        className="w-full focus:outline-none desktop:text-lg text-skin-muted"
         onChange={(e) => {
           if (setCountrySearch) {
             setCountrySearch(e.target.value);
