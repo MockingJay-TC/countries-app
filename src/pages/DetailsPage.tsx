@@ -102,7 +102,7 @@ const DetailsPage = () => {
               </p>
             </div>
           </div>
-          <div className="desktop:flex items-center justify-between gap-4 my-6 space-y-3 desktop:space-y-0">
+          <div className="desktop:grid grid-cols-2 items-center justify-between gap-4 my-6 space-y-3 desktop:space-y-0">
             {selectedCountry?.borders ? (
               <h2 className="font-semibold text-base">Border Countries:</h2>
             ) : (
