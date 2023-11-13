@@ -1,28 +1,40 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { countryType } from "../Interfaces/interface";
 import Pill from "../components/Pill";
 import { CountryContext, RegionContext } from "../context/Context";
-import {
-  fetchBorderCountries,
-  fetchCountryByCode,
-} from "../feature/country/countrySlice";
+import { fetchCountryByCode } from "../feature/country/countrySlice";
 import { useAppDispatch, useAppSelector } from "../store/hook";
 
 const DetailsPage = () => {
-  const dispatch = useAppDispatch();
-
-  const navigate = useNavigate();
-  const { selectedCountry } = useAppSelector((state) => state.countries);
-  const { setFilter } = useContext(RegionContext);
-  const { setCountrySearch } = useContext(CountryContext);
-
   const { countryName } = useParams();
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { selectedCountry } = useAppSelector((state) => state.countries);
+  const [borders, setBorders] = useState<countryType[] | undefined>();
 
   useEffect(() => {
     dispatch(fetchCountryByCode(countryName as string));
-    dispatch(fetchBorderCountries(selectedCountry.borders));
-  }, [countryName, dispatch, selectedCountry.borders]);
+  }, [countryName, dispatch]);
+
+  useEffect(() => {
+    const getBorders = async () => {
+      const allCountries = await fetch("https://restcountries.com/v3.1/all");
+      const dataCountries = await allCountries.json();
+      const borderCountries = dataCountries.filter((c: countryType) =>
+        selectedCountry?.borders?.includes(c.cca3)
+      );
+      setBorders(borderCountries);
+    };
+
+    getBorders();
+  }, [selectedCountry?.borders]);
+
+  const { setFilter } = useContext(RegionContext);
+  const { setCountrySearch } = useContext(CountryContext);
 
   const handleBack = () => {
     if (setCountrySearch) {
@@ -47,20 +59,22 @@ const DetailsPage = () => {
         <div className="desktop:w-[600px] desktop:h-[400px] ">
           <img
             src={selectedCountry?.flags?.svg}
-            alt={selectedCountry?.name}
+            alt={selectedCountry?.name?.common}
             className="w-full h-full object-cover rounded-md"
           />
         </div>
         <div className="text-left text-skin-base">
           <h1 className="desktop:text-4xl text-2xl font-extrabold ">
-            {selectedCountry?.name}
+            {selectedCountry?.name?.common}
           </h1>
           <div className="desktop:grid grid-cols-2 my-6 space-y-4">
             <div className="text-skin-base space-y-2 desktop:space-y-0">
               <p>
                 <span className="font-semibold text-base">Native Name:</span>{" "}
                 <span className="font-light text-base">
-                  {selectedCountry.nativeName}
+                  {Object.values(selectedCountry?.name?.nativeName || {}).map(
+                    (n) => n.common
+                  )}
                 </span>
               </p>
               <p>
@@ -72,19 +86,19 @@ const DetailsPage = () => {
               <p>
                 <span className="font-semibold text-base">Region:</span>{" "}
                 <span className="font-light text-base">
-                  {selectedCountry.region}
+                  {selectedCountry?.region}
                 </span>
               </p>
               <p>
                 <span className="font-semibold text-base">Sub Region:</span>{" "}
                 <span className="font-light text-base">
-                  {selectedCountry.subregion}
+                  {selectedCountry?.subregion}
                 </span>
               </p>
               <p>
                 <span className="font-semibold text-base">Capital:</span>{" "}
                 <span className="font-light text-base">
-                  {selectedCountry.capital}
+                  {selectedCountry?.capital}
                 </span>
               </p>
             </div>
@@ -94,23 +108,26 @@ const DetailsPage = () => {
                   Top Level Domain:
                 </span>{" "}
                 <span className="font-light text-base">
-                  {selectedCountry.topLevelDomain}
+                  {selectedCountry?.tld}
                 </span>
               </p>
               <p>
                 <span className="font-semibold text-base">Currencies:</span>{" "}
                 <span className="font-light text-base grid-cols-2 ">
-                  {selectedCountry.currencies?.map((curr, index) => (
-                    <span key={index}>{curr.name}, </span>
-                  ))}
+                  {selectedCountry?.currencies &&
+                    Object.values(selectedCountry?.currencies).map(
+                      (curr, index) => <span key={index}>{curr.name}, </span>
+                    )}
                 </span>
               </p>
               <p>
                 <span className="font-semibold text-base">Languages:</span>{" "}
                 <span className="font-light text-base">
-                  {selectedCountry.languages?.map((lang, index) => (
-                    <span key={index}>{lang.name}, </span>
-                  ))}
+                  {Object.values(selectedCountry.languages || {}).map(
+                    (lang, index) => (
+                      <span key={index}>{lang}, </span>
+                    )
+                  )}
                 </span>
               </p>
             </div>
@@ -121,7 +138,7 @@ const DetailsPage = () => {
             ) : (
               ""
             )}
-            <Pill />
+            <Pill borders={borders} />
           </div>
         </div>
       </div>

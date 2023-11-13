@@ -8,9 +8,11 @@ import { CountryContext, RegionContext } from "../context/Context";
 import { fetchCountries } from "../feature/country/countrySlice";
 
 const HomePage = () => {
+  const dispatch = useAppDispatch();
+
   const { regionFilter } = useContext(RegionContext);
   const { countrySearch } = useContext(CountryContext);
-  const dispatch = useAppDispatch();
+
   const { countries } = useAppSelector((state) => state.countries);
 
   useEffect(() => {
@@ -31,7 +33,7 @@ const HomePage = () => {
               })
             : countries
                 ?.filter((country) =>
-                  country.name
+                  country.name.common
                     .toLowerCase()
                     .includes(countrySearch.toLowerCase())
                 )

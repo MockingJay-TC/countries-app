@@ -1,15 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { Country } from "../Interfaces/interface";
+import { countryType } from "../Interfaces/interface";
 
-interface ICard {
-  country: Country;
-}
-
-const Card = ({ country }: ICard) => {
+const Card = ({ country }: { country: countryType }) => {
   const navigate = useNavigate();
 
-  const handleCardDetials = (country: Country) => {
-    navigate(`/details-page/${country.alpha3Code}`);
+  const handleCardDetials = (country: countryType) => {
+    navigate(`/details-page/${country.cca3}`);
   };
 
   return (
@@ -20,13 +16,13 @@ const Card = ({ country }: ICard) => {
       <div className="w-full h-40">
         <img
           src={country.flags.svg}
-          alt={country.name}
+          alt={country.name.common}
           className="w-full h-full object-cover rounded-t-md"
         />
       </div>
       <div className="p-6 text-skin-base">
         <h2 className="mb-3 text-lg font-extrabold truncate ">
-          {country.name}
+          {country.name.common}
         </h2>
         <p>
           <span className="font-semibold text-sm">Population:</span>{" "}
