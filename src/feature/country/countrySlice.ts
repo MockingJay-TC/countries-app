@@ -66,9 +66,6 @@ const countrySlice = createSlice({
       state.countries = [];
       state.error = action.error.message;
     });
-    builder.addCase(fetchBorderCountries.fulfilled, (state, action) => {
-      state.borders = action.payload;
-    });
     builder.addCase(fetchCountryByCode.fulfilled, (state, action) => {
       state.selectedCountry = action.payload;
     });
