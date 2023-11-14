@@ -11,18 +11,21 @@ import { useAppDispatch, useAppSelector } from "../store/hook";
 
 const DetailsPage = () => {
   const dispatch = useAppDispatch();
-
   const navigate = useNavigate();
+  const { countryName } = useParams();
+
+  const { borders } = useAppSelector((state) => state.countries);
   const { selectedCountry } = useAppSelector((state) => state.countries);
   const { setFilter } = useContext(RegionContext);
   const { setCountrySearch } = useContext(CountryContext);
 
-  const { countryName } = useParams();
-
   useEffect(() => {
     dispatch(fetchCountryByCode(countryName as string));
+  }, [countryName, dispatch]);
+
+  useEffect(() => {
     dispatch(fetchBorderCountries(selectedCountry.borders));
-  }, [countryName, dispatch, selectedCountry.borders]);
+  }, [dispatch, selectedCountry.borders]);
 
   const handleBack = () => {
     if (setCountrySearch) {
@@ -31,7 +34,6 @@ const DetailsPage = () => {
     if (setFilter) {
       setFilter("Filter by region");
     }
-
     navigate("/");
   };
   return (
@@ -47,44 +49,46 @@ const DetailsPage = () => {
         <div className="desktop:w-[600px] desktop:h-[400px] ">
           <img
             src={selectedCountry?.flags?.svg}
-            alt={selectedCountry?.name}
+            alt={selectedCountry?.name?.common}
             className="w-full h-full object-cover rounded-md"
           />
         </div>
         <div className="text-left text-skin-base">
           <h1 className="desktop:text-4xl text-2xl font-extrabold ">
-            {selectedCountry?.name}
+            {selectedCountry?.name?.common}
           </h1>
           <div className="desktop:grid grid-cols-2 my-6 space-y-4">
             <div className="text-skin-base space-y-2 desktop:space-y-0">
               <p>
                 <span className="font-semibold text-base">Native Name:</span>{" "}
                 <span className="font-light text-base">
-                  {selectedCountry.nativeName}
+                  {Object.values(selectedCountry?.name?.nativeName || {}).map(
+                    (n) => n.common
+                  )}
                 </span>
               </p>
               <p>
                 <span className="font-semibold text-base">Population:</span>{" "}
                 <span className="font-light text-base">
-                  {new Intl.NumberFormat().format(selectedCountry.population)}
+                  {new Intl.NumberFormat().format(selectedCountry?.population)}
                 </span>
               </p>
               <p>
                 <span className="font-semibold text-base">Region:</span>{" "}
                 <span className="font-light text-base">
-                  {selectedCountry.region}
+                  {selectedCountry?.region}
                 </span>
               </p>
               <p>
                 <span className="font-semibold text-base">Sub Region:</span>{" "}
                 <span className="font-light text-base">
-                  {selectedCountry.subregion}
+                  {selectedCountry?.subregion}
                 </span>
               </p>
               <p>
                 <span className="font-semibold text-base">Capital:</span>{" "}
                 <span className="font-light text-base">
-                  {selectedCountry.capital}
+                  {selectedCountry?.capital}
                 </span>
               </p>
             </div>
@@ -94,23 +98,25 @@ const DetailsPage = () => {
                   Top Level Domain:
                 </span>{" "}
                 <span className="font-light text-base">
-                  {selectedCountry.topLevelDomain}
+                  {selectedCountry?.tld}
                 </span>
               </p>
               <p>
                 <span className="font-semibold text-base">Currencies:</span>{" "}
                 <span className="font-light text-base grid-cols-2 ">
-                  {selectedCountry.currencies?.map((curr, index) => (
-                    <span key={index}>{curr.name}, </span>
-                  ))}
+                  {selectedCountry?.currencies &&
+                    Object.values(selectedCountry?.currencies).map(
+                      (curr, index) => <span key={index}>{curr.name}, </span>
+                    )}
                 </span>
               </p>
               <p>
                 <span className="font-semibold text-base">Languages:</span>{" "}
                 <span className="font-light text-base">
-                  {selectedCountry.languages?.map((lang, index) => (
-                    <span key={index}>{lang.name}, </span>
-                  ))}
+                  {selectedCountry?.languages &&
+                    Object.values(selectedCountry?.languages).map(
+                      (lang, index) => <span key={index}>{lang}, </span>
+                    )}
                 </span>
               </p>
             </div>
@@ -121,7 +127,7 @@ const DetailsPage = () => {
             ) : (
               ""
             )}
-            <Pill />
+            <Pill borders={borders} />
           </div>
         </div>
       </div>

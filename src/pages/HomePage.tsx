@@ -31,7 +31,7 @@ const HomePage = () => {
               })
             : countries
                 ?.filter((country) =>
-                  country.name
+                  country.name.common
                     .toLowerCase()
                     .includes(countrySearch.toLowerCase())
                 )

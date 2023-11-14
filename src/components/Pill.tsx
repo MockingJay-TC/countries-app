@@ -1,23 +1,21 @@
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../store/hook";
+import { countryType } from "../Interfaces/interface";
 
-const Pill = () => {
+const Pill = ({ borders }: { borders: countryType[] | undefined }) => {
   const navigate = useNavigate();
-  const { borders } = useAppSelector((state) => state.countries);
-
-  const handleBorder = (border: string) => {
-    navigate(`/details-page/${border}`);
+  const handleBorder = (border: countryType) => {
+    navigate(`/details-page/${border.cca3}`);
   };
 
   return (
     <div className="flex items-center gap-4 justify-stretch flex-wrap">
       {borders?.map((border, index) => (
         <div
-          onClick={() => handleBorder(border.code)}
+          onClick={() => handleBorder(border)}
           key={index}
           className="shadow-pill py-1.5 px-3 text-sm font-light bg-skin-navbar cursor-pointer"
         >
-          {border.name}
+          {border?.name?.common}
         </div>
       ))}
     </div>
